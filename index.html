@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberFlowers</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+        
+        :root {
+            --neon-pink: #ff00ff;
+            --dark-pink: #ff00aa;
+            --light-pink: #ff66cc;
+            --dark-bg: #0a0014;
+            --grid-color: rgba(255, 0, 255, 0.1);
+            --cyber-blue: #00ffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            min-height: 100vh;
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Share Tech Mono', monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -3;
+            animation: gridMove 30s linear infinite;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(40px, 40px); }
+        }
+        
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            z-index: -2;
+            pointer-events: none;
+        }
+        
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background-color: var(--neon-pink);
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px var(--neon-pink);
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px);
+                opacity: 0;
+            }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(10, 0, 20, 0.7);
+            border: 1px solid var(--neon-pink);
+            box-shadow: 
+                0 0 20px var(--neon-pink),
+                inset 0 0 20px rgba(255, 0, 255, 0.2);
+            border-radius: 5px;
+            max-width: 90%;
+        }
+        
+        .greetings {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .greetings span {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-shadow: 
+                0 0 5px var(--neon-pink),
+                0 0 10px var(--neon-pink),
+                0 0 20px var(--neon-pink),
+                0 0 40px var(--dark-pink);
+            animation: neon-flicker 3s infinite alternate;
+            margin: 0 5px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .greetings span:nth-child(2n) {
+            animation-delay: 0.2s;
+        }
+        
+        .greetings span:nth-child(3n) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes neon-flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow: 
+                    0 0 5px var(--neon-pink),
+                    0 0 10px var(--neon-pink),
+                    0 0 20px var(--neon-pink),
+                    0 0 40px var(--dark-pink);
+                opacity: 1;
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+                opacity: 0.8;
+            }
+        }
+        
+        .description {
+            font-size: 1.5rem;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            text-shadow: 0 0 10px var(--light-pink);
+            position: relative;
+            padding: 15px 25px;
+            border: 1px solid var(--neon-pink);
+            box-shadow: 
+                inset 0 0 10px var(--neon-pink),
+                0 0 10px var(--neon-pink);
+            background-color: rgba(10, 0, 20, 0.7);
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            overflow: hidden;
+        }
+        
+        .description::before, .description::after {
+            content: "❖";
+            position: absolute;
+            color: var(--neon-pink);
+            font-size: 1.2rem;
+        }
+        
+        .description::before {
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .description::after {
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .description span {
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .button {
+            margin-top: 1.5rem;
+            position: relative;
+        }
+        
+        button {
+            background: transparent;
+            border: 2px solid var(--neon-pink);
+            color: white;
+            padding: 15px 30px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 
+                0 0 10px var(--neon-pink),
+                inset 0 0 5px var(--neon-pink);
+        }
+        
+        button:hover {
+            background-color: var(--neon-pink);
+            color: var(--dark-bg);
+            box-shadow: 
+                0 0 20px var(--neon-pink),
+                0 0 40px var(--neon-pink),
+                inset 0 0 10px rgba(255, 255, 255, 0.5);
+            transform: scale(1.05);
+        }
+        
+        button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            transition: 0.5s;
+        }
+        
+        button:hover::before {
+            left: 100%;
+        }
+        
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        .glitch {
+            position: relative;
+        }
+        
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 15px 25px;
+        }
+        
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--dark-pink);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+        
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--light-pink);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-anim {
+            0% { clip: rect(31px, 9999px, 17px, 0); }
+            5% { clip: rect(64px, 9999px, 75px, 0); }
+            10% { clip: rect(17px, 9999px, 32px, 0); }
+            15% { clip: rect(6px, 9999px, 65px, 0); }
+            20% { clip: rect(82px, 9999px, 64px, 0); }
+            25% { clip: rect(78px, 9999px, 103px, 0); }
+            30% { clip: rect(34px, 9999px, 115px, 0); }
+            35% { clip: rect(18px, 9999px, 5px, 0); }
+            40% { clip: rect(95px, 9999px, 41px, 0); }
+            45% { clip: rect(26px, 9999px, 78px, 0); }
+            50% { clip: rect(42px, 9999px, 33px, 0); }
+            55% { clip: rect(116px, 9999px, 112px, 0); }
+            60% { clip: rect(121px, 9999px, 12px, 0); }
+            65% { clip: rect(12px, 9999px, 77px, 0); }
+            70% { clip: rect(21px, 9999px, 28px, 0); }
+            75% { clip: rect(115px, 9999px, 62px, 0); }
+            80% { clip: rect(85px, 9999px, 102px, 0); }
+            85% { clip: rect(14px, 9999px, 22px, 0); }
+            90% { clip: rect(19px, 9999px, 89px, 0); }
+            95% { clip: rect(104px, 9999px, 47px, 0); }
+            100% { clip: rect(28px, 9999px, 95px, 0); }
+        }
+        
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            5% { clip: rect(52px, 9999px, 74px, 0); }
+            10% { clip: rect(79px, 9999px, 85px, 0); }
+            15% { clip: rect(75px, 9999px, 5px, 0); }
+            20% { clip: rect(67px, 9999px, 61px, 0); }
+            25% { clip: rect(14px, 9999px, 79px, 0); }
+            30% { clip: rect(1px, 9999px, 66px, 0); }
+            35% { clip: rect(86px, 9999px, 30px, 0); }
+            40% { clip: rect(23px, 9999px, 98px, 0); }
+            45% { clip: rect(85px, 9999px, 72px, 0); }
+            50% { clip: rect(71px, 9999px, 103px, 0); }
+            55% { clip: rect(19px, 9999px, 48px, 0); }
+            60% { clip: rect(104px, 9999px, 83px, 0); }
+            65% { clip: rect(12px, 9999px, 91px, 0); }
+            70% { clip: rect(7px, 9999px, 14px, 0); }
+            75% { clip: rect(13px, 9999px, 27px, 0); }
+            80% { clip: rect(26px, 9999px, 48px, 0); }
+            85% { clip: rect(17px, 9999px, 99px, 0); }
+            90% { clip: rect(37px, 9999px, 51px, 0); }
+            95% { clip: rect(102px, 9999px, 27px, 0); }
+            100% { clip: rect(113px, 9999px, 53px, 0); }
+        }
+        
+        .corner {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+        }
+        
+        .corner-tl {
+            top: 10px;
+            left: 10px;
+            border-top: 2px solid var(--neon-pink);
+            border-left: 2px solid var(--neon-pink);
+        }
+        
+        .corner-tr {
+            top: 10px;
+            right: 10px;
+            border-top: 2px solid var(--neon-pink);
+            border-right: 2px solid var(--neon-pink);
+        }
+        
+        .corner-bl {
+            bottom: 10px;
+            left: 10px;
+            border-bottom: 2px solid var(--neon-pink);
+            border-left: 2px solid var(--neon-pink);
+        }
+        
+        .corner-br {
+            bottom: 10px;
+            right: 10px;
+            border-bottom: 2px solid var(--neon-pink);
+            border-right: 2px solid var(--neon-pink);
+        }
+        
+        .binary-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .binary {
+            position: absolute;
+            color: var(--neon-pink);
+            font-size: 14px;
+            font-family: 'Share Tech Mono', monospace;
+            animation: fall linear infinite;
+            text-shadow: 0 0 5px var(--neon-pink);
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .greetings span {
+                font-size: 2.5rem;
+            }
+            
+            .description {
+                font-size: 1.2rem;
+                padding: 10px 15px;
+            }
+            
+            button {
+                padding: 12px 24px;
+                font-size: 1rem;
+            }
+            
+            .container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    <div class="binary-rain" id="binaryRain"></div>
+    
+    <div class="container">
+        <div class="corner corner-tl"></div>
+        <div class="corner corner-tr"></div>
+        <div class="corner corner-bl"></div>
+        <div class="corner corner-br"></div>
+        
+        <div class="greetings">
+            <span>H</span>
+            <span>A</span>
+            <span>L</span>
+            <span>L</span>
+            <span>O</span>
+            <span>N</span>
+            <span>O</span>
+            <span>N</span>
+            <span>A</span>
+        </div>
+        <div class="description glitch" data-text="Kamu suka bunga yah katanya">
+            <span>Salam kenal yah kak Nona Cantik</span>
+        </div>
+        <div class="button">
+            <button>
+                <a href="flower.html">KLIK HAU KAK</a>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 50;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            const left = Math.random() * 100;
+            const delay = Math.random() * 15;
+            const duration = 10 + Math.random() * 10;
+            
+            particle.style.left = `${left}vw`;
+            particle.style.animationDelay = `${delay}s`;
+            particle.style.animationDuration = `${duration}s`;
+            
+            particlesContainer.appendChild(particle);
+        }
+        
+        const binaryRain = document.getElementById('binaryRain');
+        const binaryCount = 30;
+        
+        for (let i = 0; i < binaryCount; i++) {
+            const binary = document.createElement('div');
+            binary.classList.add('binary');
+            
+            const left = Math.random() * 100;
+            const delay = Math.random() * 10;
+            const duration = 5 + Math.random() * 10;
+            const binaryText = Math.random() > 0.5 ? '1' : '0';
+            
+            binary.textContent = binaryText;
+            binary.style.left = `${left}vw`;
+            binary.style.animationDelay = `${delay}s`;
+            binary.style.animationDuration = `${duration}s`;
+            
+            binaryRain.appendChild(binary);
+        }
+        
+        document.addEventListener('mousemove', (e) => {
+            const cursorGlow = document.createElement('div');
+            cursorGlow.classList.add('particle');
+            cursorGlow.style.left = `${e.clientX}px`;
+            cursorGlow.style.top = `${e.clientY}px`;
+            cursorGlow.style.width = '6px';
+            cursorGlow.style.height = '6px';
+            cursorGlow.style.animation = 'none';
+            cursorGlow.style.opacity = '0.7';
+            
+            particlesContainer.appendChild(cursorGlow);
+            
+            setTimeout(() => {
+                cursorGlow.remove();
+            }, 500);
+        });
+    </script>
+</body>
+</html>
